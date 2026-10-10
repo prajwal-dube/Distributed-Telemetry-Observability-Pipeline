@@ -1,0 +1,5 @@
+.git
+results
+.venv
+__pycache__
+agent/bin

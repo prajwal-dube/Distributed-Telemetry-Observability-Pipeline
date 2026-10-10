@@ -1,0 +1,6 @@
+PASS: Python source syntax.
+PASS: Compose and provisioning YAML parsed (12 services).
+PASS: Grafana dashboard and evidence JSON parsed.
+PASS: All 300 benchmark batches completed; 150,000 events.
+PASS: Prometheus scrape/query matches 159,025 final span counter including fixtures and agent demo.
+PASS: Main 7-test integration suite + local receiver replay test + 3 race-enabled Go tests.

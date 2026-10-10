@@ -1,0 +1,100 @@
+# HELP telemetry_request_duration_seconds Cumulative processed duration histogram
+# TYPE telemetry_request_duration_seconds histogram
+telemetry_request_duration_seconds_bucket{le="0.0005",service="checkout"} 0.0
+telemetry_request_duration_seconds_bucket{le="0.001",service="checkout"} 600.0
+telemetry_request_duration_seconds_bucket{le="0.002",service="checkout"} 900.0
+telemetry_request_duration_seconds_bucket{le="0.005",service="checkout"} 2400.0
+telemetry_request_duration_seconds_bucket{le="0.01",service="checkout"} 5100.0
+telemetry_request_duration_seconds_bucket{le="0.025",service="checkout"} 12600.0
+telemetry_request_duration_seconds_bucket{le="0.05",service="checkout"} 27901.0
+telemetry_request_duration_seconds_bucket{le="0.1",service="checkout"} 53101.0
+telemetry_request_duration_seconds_bucket{le="0.2",service="checkout"} 53121.0
+telemetry_request_duration_seconds_bucket{le="0.5",service="checkout"} 53123.0
+telemetry_request_duration_seconds_bucket{le="1.0",service="checkout"} 53123.0
+telemetry_request_duration_seconds_bucket{le="2.0",service="checkout"} 53123.0
+telemetry_request_duration_seconds_bucket{le="5.0",service="checkout"} 53123.0
+telemetry_request_duration_seconds_bucket{le="600.0",service="checkout"} 53123.0
+telemetry_request_duration_seconds_bucket{le="+Inf",service="checkout"} 53123.0
+telemetry_request_duration_seconds_count{service="checkout"} 53123.0
+telemetry_request_duration_seconds_sum{service="checkout"} 2643.235
+telemetry_request_duration_seconds_bucket{le="0.0005",service="inventory"} 0.0
+telemetry_request_duration_seconds_bucket{le="0.001",service="inventory"} 600.0
+telemetry_request_duration_seconds_bucket{le="0.002",service="inventory"} 1200.0
+telemetry_request_duration_seconds_bucket{le="0.005",service="inventory"} 2700.0
+telemetry_request_duration_seconds_bucket{le="0.01",service="inventory"} 8101.0
+telemetry_request_duration_seconds_bucket{le="0.025",service="inventory"} 15601.0
+telemetry_request_duration_seconds_bucket{le="0.05",service="inventory"} 28201.0
+telemetry_request_duration_seconds_bucket{le="0.1",service="inventory"} 53101.0
+telemetry_request_duration_seconds_bucket{le="0.2",service="inventory"} 53101.0
+telemetry_request_duration_seconds_bucket{le="0.5",service="inventory"} 53101.0
+telemetry_request_duration_seconds_bucket{le="1.0",service="inventory"} 53101.0
+telemetry_request_duration_seconds_bucket{le="2.0",service="inventory"} 53101.0
+telemetry_request_duration_seconds_bucket{le="5.0",service="inventory"} 53101.0
+telemetry_request_duration_seconds_bucket{le="600.0",service="inventory"} 53101.0
+telemetry_request_duration_seconds_bucket{le="+Inf",service="inventory"} 53101.0
+telemetry_request_duration_seconds_count{service="inventory"} 53101.0
+telemetry_request_duration_seconds_sum{service="inventory"} 2549.108
+telemetry_request_duration_seconds_bucket{le="0.0005",service="payments"} 0.0
+telemetry_request_duration_seconds_bucket{le="0.001",service="payments"} 300.0
+telemetry_request_duration_seconds_bucket{le="0.002",service="payments"} 900.0
+telemetry_request_duration_seconds_bucket{le="0.005",service="payments"} 2400.0
+telemetry_request_duration_seconds_bucket{le="0.01",service="payments"} 4801.0
+telemetry_request_duration_seconds_bucket{le="0.025",service="payments"} 15301.0
+telemetry_request_duration_seconds_bucket{le="0.05",service="payments"} 27901.0
+telemetry_request_duration_seconds_bucket{le="0.1",service="payments"} 52801.0
+telemetry_request_duration_seconds_bucket{le="0.2",service="payments"} 52801.0
+telemetry_request_duration_seconds_bucket{le="0.5",service="payments"} 52801.0
+telemetry_request_duration_seconds_bucket{le="1.0",service="payments"} 52801.0
+telemetry_request_duration_seconds_bucket{le="2.0",service="payments"} 52801.0
+telemetry_request_duration_seconds_bucket{le="5.0",service="payments"} 52801.0
+telemetry_request_duration_seconds_bucket{le="600.0",service="payments"} 52801.0
+telemetry_request_duration_seconds_bucket{le="+Inf",service="payments"} 52801.0
+telemetry_request_duration_seconds_count{service="payments"} 52801.0
+telemetry_request_duration_seconds_sum{service="payments"} 2574.908
+# HELP telemetry_requests_total Processed spans by HTTP status class
+# TYPE telemetry_requests_total counter
+telemetry_requests_total{service="checkout",status_class="1xx"} 0.0
+telemetry_requests_total{service="checkout",status_class="2xx"} 52518.0
+telemetry_requests_total{service="checkout",status_class="3xx"} 0.0
+telemetry_requests_total{service="checkout",status_class="4xx"} 0.0
+telemetry_requests_total{service="checkout",status_class="5xx"} 605.0
+telemetry_requests_total{service="inventory",status_class="1xx"} 0.0
+telemetry_requests_total{service="inventory",status_class="2xx"} 52501.0
+telemetry_requests_total{service="inventory",status_class="3xx"} 0.0
+telemetry_requests_total{service="inventory",status_class="4xx"} 0.0
+telemetry_requests_total{service="inventory",status_class="5xx"} 600.0
+telemetry_requests_total{service="payments",status_class="1xx"} 0.0
+telemetry_requests_total{service="payments",status_class="2xx"} 52501.0
+telemetry_requests_total{service="payments",status_class="3xx"} 0.0
+telemetry_requests_total{service="payments",status_class="4xx"} 0.0
+telemetry_requests_total{service="payments",status_class="5xx"} 300.0
+# HELP telemetry_window_p99_upper_bound_seconds Upper-bound p99 for last six complete 10-second buckets
+# TYPE telemetry_window_p99_upper_bound_seconds gauge
+telemetry_window_p99_upper_bound_seconds{service="checkout"} 0.1
+telemetry_window_p99_upper_bound_seconds{service="inventory"} 0.1
+telemetry_window_p99_upper_bound_seconds{service="payments"} 0.1
+# HELP telemetry_window_mean_seconds Mean duration in last complete minute
+# TYPE telemetry_window_mean_seconds gauge
+telemetry_window_mean_seconds{service="checkout"} 0.05060983155037522
+telemetry_window_mean_seconds{service="inventory"} 0.0504003512903934
+telemetry_window_mean_seconds{service="payments"} 0.050499146603481856
+# HELP telemetry_window_samples Window sample count
+# TYPE telemetry_window_samples gauge
+telemetry_window_samples{service="checkout"} 50104.0
+telemetry_window_samples{service="inventory"} 50101.0
+telemetry_window_samples{service="payments"} 49801.0
+# HELP telemetry_agent_heap_bytes Latest agent process snapshot
+# TYPE telemetry_agent_heap_bytes gauge
+telemetry_agent_heap_bytes 3.535856e+06
+# HELP telemetry_agent_peak_rss_bytes Latest agent process snapshot
+# TYPE telemetry_agent_peak_rss_bytes gauge
+telemetry_agent_peak_rss_bytes 6.6920448e+07
+# HELP telemetry_agent_cpu_cores Latest agent process snapshot
+# TYPE telemetry_agent_cpu_cores gauge
+telemetry_agent_cpu_cores 0.048613892983165
+# HELP telemetry_processed_spans_total Deduplicated aggregation count
+# TYPE telemetry_processed_spans_total counter
+telemetry_processed_spans_total 159025.0
+# HELP telemetry_processed_batches_total Deduplicated aggregation count
+# TYPE telemetry_processed_batches_total counter
+telemetry_processed_batches_total 327.0

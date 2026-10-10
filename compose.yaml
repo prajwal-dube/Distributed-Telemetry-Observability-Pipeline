@@ -1,0 +1,104 @@
+x-app: &app
+  build: .
+  environment: &env
+    DATABASE_URL: postgresql://telemetry:telemetry@postgres:5432/telemetry
+    REDIS_URL: redis://redis:6379/0
+    CELERY_BROKER_URL: redis://redis:6379/1
+    API_TOKEN: demo-token
+    BROKER_VISIBILITY_TIMEOUT: '${BROKER_VISIBILITY_TIMEOUT:-60}'
+    TRACE_SAMPLE_RATE: '${TRACE_SAMPLE_RATE:-0.01}'
+    WEBHOOK_URL: http://webhook:8090/events
+    WEBHOOK_SECRET: demo-webhook-secret
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+services:
+  postgres:
+    image: postgres:16-bookworm
+    environment:
+      POSTGRES_USER: telemetry
+      POSTGRES_PASSWORD: telemetry
+      POSTGRES_DB: telemetry
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U telemetry -d telemetry']
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  redis:
+    image: redis:7.2-bookworm
+    command: [redis-server, --appendonly, 'yes', --appendfsync, always, --maxmemory-policy, noeviction]
+    volumes: [redisdata:/data]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  migrate:
+    <<: *app
+    command: [python, -m, app.cli, migrate]
+    restart: 'no'
+  api:
+    <<: *app
+    ports: ['127.0.0.1:8082:8082']
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+  worker:
+    <<: *app
+    command: [python, -m, celery, -A, app.tasks, worker, --pool, solo, --loglevel, info]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+  relay:
+    <<: *app
+    command: [python, -m, app.relay]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+  beat:
+    <<: *app
+    command: [python, -m, celery, -A, app.tasks, beat, --schedule, /tmp/celerybeat, --loglevel, info]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+  webhook:
+    <<: *app
+    command: [python, -m, uvicorn, app.webhook:app, --host, 0.0.0.0, --port, '8090']
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+  agent:
+    build: ./agent
+    environment:
+      INGEST_URL: http://api:8082/ingest
+      API_TOKEN: demo-token
+      AGENT_BUFFER: '10000'
+    ports: ['127.0.0.1:8083:8083']
+    depends_on: [api]
+  prometheus:
+    image: prom/prometheus:v2.53.4
+    volumes: ['./deploy/prometheus.yml:/etc/prometheus/prometheus.yml:ro', 'promdata:/prometheus']
+    ports: ['127.0.0.1:9090:9090']
+    depends_on: [api]
+  grafana:
+    image: grafana/grafana:11.6.0
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: demo-grafana-password
+    volumes: ['./deploy/grafana/provisioning:/etc/grafana/provisioning:ro', './deploy/grafana/dashboard.json:/var/lib/grafana/dashboards/telemetry.json:ro']
+    ports: ['127.0.0.1:3000:3000']
+    depends_on: [prometheus]
+  tests:
+    <<: *app
+    profiles: [tests]
+    environment:
+      <<: *env
+      INTEGRATION: '1'
+    command: [python, -m, pytest, -q, -p, no:cacheprovider]
+volumes:
+  pgdata:
+  redisdata:
+  promdata:

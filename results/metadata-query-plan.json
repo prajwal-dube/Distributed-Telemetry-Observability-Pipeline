@@ -1,0 +1,17 @@
+[
+  {
+    "QUERY PLAN": "Index Scan using services_pkey on services  (cost=0.15..8.17 rows=1 width=68) (actual time=0.019..0.020 rows=1 loops=1)"
+  },
+  {
+    "QUERY PLAN": "  Index Cond: (name = 'checkout'::text)"
+  },
+  {
+    "QUERY PLAN": "  Buffers: shared hit=2"
+  },
+  {
+    "QUERY PLAN": "Planning Time: 0.075 ms"
+  },
+  {
+    "QUERY PLAN": "Execution Time: 0.033 ms"
+  }
+]

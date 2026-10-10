@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "telemetry_processed_spans_total",
+          "instance": "localhost:8082",
+          "job": "telemetry"
+        },
+        "value": [
+          1791544008.458,
+          "159025"
+        ]
+      }
+    ]
+  }
+}

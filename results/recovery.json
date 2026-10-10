@@ -1,0 +1,7 @@
+{
+  "crash_exit_code": 42,
+  "broker_visibility_timeout_seconds": 5,
+  "all_admitted_batches_recovered": true,
+  "observed_recovery_seconds": 91.423,
+  "duplicate_task_did_not_increment_metrics": true
+}

@@ -1,0 +1,9 @@
+?   	telemetryagent/cmd/agent	[no test files]
+=== RUN   TestBoundedNonblockingRecorder
+--- PASS: TestBoundedNonblockingRecorder (0.00s)
+=== RUN   TestSnapshot
+--- PASS: TestSnapshot (0.00s)
+=== RUN   TestRetryReusesBatchID
+--- PASS: TestRetryReusesBatchID (0.61s)
+PASS
+ok  	telemetryagent/internal/telemetry	1.628s

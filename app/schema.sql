@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY,username TEXT NOT NULL UNIQUE,api_key_hash TEXT NOT NULL UNIQUE,active BOOLEAN NOT NULL DEFAULT true);
+CREATE TABLE IF NOT EXISTS services(name TEXT PRIMARY KEY,team TEXT NOT NULL,owner_user_id INTEGER NOT NULL REFERENCES users(id));
+CREATE TABLE IF NOT EXISTS spans(trace_id TEXT NOT NULL,span_id TEXT NOT NULL,parent_id TEXT,service TEXT NOT NULL REFERENCES services(name),operation TEXT NOT NULL,start_ms BIGINT NOT NULL,duration_ms DOUBLE PRECISION NOT NULL,status INTEGER NOT NULL,PRIMARY KEY(trace_id,span_id));
+CREATE INDEX IF NOT EXISTS spans_service_start ON spans(service,start_ms DESC);
+CREATE TABLE IF NOT EXISTS alert_rules(id SERIAL PRIMARY KEY,service TEXT NOT NULL REFERENCES services(name),threshold_ms DOUBLE PRECISION NOT NULL CHECK(threshold_ms>=0),for_seconds INTEGER NOT NULL CHECK(for_seconds>=0),min_samples INTEGER NOT NULL DEFAULT 1 CHECK(min_samples>0),enabled BOOLEAN NOT NULL DEFAULT true,pending_since DOUBLE PRECISION,last_evaluated DOUBLE PRECISION);
+CREATE INDEX IF NOT EXISTS alert_rules_enabled_service ON alert_rules(service) WHERE enabled;
+CREATE TABLE IF NOT EXISTS alerts(id UUID PRIMARY KEY,rule_id INTEGER NOT NULL REFERENCES alert_rules(id),service TEXT NOT NULL,metric_ms DOUBLE PRECISION NOT NULL,fired_at TIMESTAMPTZ NOT NULL DEFAULT now(),resolved_at TIMESTAMPTZ);
+CREATE UNIQUE INDEX IF NOT EXISTS one_open_alert ON alerts(rule_id) WHERE resolved_at IS NULL;
+CREATE TABLE IF NOT EXISTS webhook_outbox(alert_id UUID PRIMARY KEY REFERENCES alerts(id),payload JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'PENDING',attempts INTEGER NOT NULL DEFAULT 0,lease_token UUID,lease_until TIMESTAMPTZ,delivered_at TIMESTAMPTZ);
+CREATE TABLE IF NOT EXISTS webhook_receipts(alert_id UUID PRIMARY KEY,payload JSONB NOT NULL,received_at TIMESTAMPTZ NOT NULL DEFAULT now());

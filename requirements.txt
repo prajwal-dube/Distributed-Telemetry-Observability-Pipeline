@@ -1,0 +1,9 @@
+fastapi==0.115.12
+uvicorn==0.34.0
+pydantic==2.13.5
+psycopg[binary]==3.2.6
+celery==5.5.3
+redis==5.2.1
+prometheus-client==0.22.1
+httpx==0.28.1
+pytest==8.3.5

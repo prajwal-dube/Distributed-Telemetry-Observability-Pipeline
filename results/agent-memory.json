@@ -1,0 +1,18 @@
+{
+  "demo_requests": 3000,
+  "span_attempts": 9000,
+  "http_seconds": 4.6023903869991045,
+  "agent_stats": {
+    "batches": 21,
+    "delivered": 9000,
+    "dropped": 0,
+    "recorded": 9000,
+    "send_failures": 0
+  },
+  "runtime": {
+    "heap_bytes": 3535856,
+    "peak_rss_bytes": 66920448,
+    "cpu_cores": 0.048613892983165
+  },
+  "peak_rss_fraction_of_8gib_pct": 0.7790565490722656
+}

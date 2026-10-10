@@ -1,0 +1,35 @@
+{
+  "trace_id": "00000001000000000000000000000000",
+  "spans": [
+    {
+      "trace_id": "00000001000000000000000000000000",
+      "span_id": "0000000000000001",
+      "parent_id": null,
+      "service": "checkout",
+      "operation": "trace-e2e",
+      "start_ms": 1791543986901,
+      "duration_ms": 35.0,
+      "status": 200
+    },
+    {
+      "trace_id": "00000001000000000000000000000000",
+      "span_id": "0000000000000002",
+      "parent_id": "0000000000000001",
+      "service": "inventory",
+      "operation": "trace-e2e",
+      "start_ms": 1791543986906,
+      "duration_ms": 8.0,
+      "status": 200
+    },
+    {
+      "trace_id": "00000001000000000000000000000000",
+      "span_id": "0000000000000003",
+      "parent_id": "0000000000000001",
+      "service": "payments",
+      "operation": "trace-e2e",
+      "start_ms": 1791543986911,
+      "duration_ms": 8.0,
+      "status": 200
+    }
+  ]
+}
